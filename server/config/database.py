@@ -41,3 +41,14 @@ def create_indexes():
             result_col.create_index(filed, background=True)
         except:
             pass
+
+class Gitee:
+    USERNAME = "hoopyoung@163.com"
+    PASSWORD = "abc12345"
+
+    NODES = '//*[@id="search-results"]/div[@class="term"]'
+    DATETIME = '//span[@class="tag"]'
+    LINK = '//div[@class="keyword_tag"]//a[@class="path"]'
+    PROJECT = ''
+    LANGUAGE = '//div[@class="attr adjust"]/span[@class="tag lang"]'
+    USERNAME = '//div[@class="header"]//a[@class="ns"]'

@@ -16,7 +16,7 @@
                             <a :href="leakageInfo.link" target="_blank" referrerpolicy="no-referrer">{{leakageInfo.filename}}</a>
                         </el-form-item>
                         <el-form-item label="仓库信息">
-                            <div class="project-info">
+                            <div class="project-info" v-if="leakageInfo.vendor != 'GITEE'">
                                 <img :src="'https://img.shields.io/github/issues/'+leakageInfo.project+'.svg?longCache=true&style=flat'"
                                      alt="">
                                 <img :src="'https://img.shields.io/github/forks/'+leakageInfo.project+'.svg?longCache=true&style=flat'"
@@ -67,7 +67,9 @@
                         </el-form-item>
                         <el-form-item>
                             <el-button type="primary" round size="mini" @click="dealLeakage">确认</el-button>
-                            <el-button type="primary" round size="mini" @click="quickCheck(leakageInfo)">快速排查
+                            <el-button v-if="leakageInfo.vendor!= 'GITEE'" type="primary" round size="mini" @click="quickCheck(leakageInfo)">快速排查
+                            </el-button>
+                            <el-button v-else type="primary" round size="mini" @click="()=>{}">不要点我
                             </el-button>
                         </el-form-item>
                     </el-form>
@@ -98,7 +100,7 @@
                 </el-collapse>
             </div>
             <el-card shadow="never">
-                <div class="clearfix" slot="header">
+                <div  class="clearfix" slot="header">
                     <i class="el-icon-document" style="margin-right: 4px;"></i>
                     <a :href="leakageInfo.link" target="_blank">可疑文件</a>
                 </div>
@@ -134,7 +136,7 @@
                 const url =
                     leakageInfo.project_url +
                     "/search?utf8=✓&q=pass OR password OR passwd OR pwd OR smtp OR database";
-                window.open(url, "_blank");
+                    window.open(url, "_blank");
             },
             fetchInfoData() {
                 this.axios

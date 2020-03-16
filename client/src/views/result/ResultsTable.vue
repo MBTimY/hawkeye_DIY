@@ -102,7 +102,7 @@
                     width="300"
             >
                 <template slot-scope="scope">
-                    <div class="project-info">
+                    <div class="project-info" v-if="scope.row.vendor != 'GITEE'">
                         <img :src="'https://img.shields.io/github/issues/'+scope.row.project+'.svg'" alt="">
                         <img :src="'https://img.shields.io/github/forks/'+scope.row.project+'.svg'" alt="">
                         <img :src="'https://img.shields.io/github/stars/'+scope.row.project+'.svg'" alt="">
@@ -115,7 +115,7 @@
                     width="300"
             >
                 <template slot-scope="scope">
-                    <el-button-group>
+                    <el-button-group v-if="scope.row.vendor != 'GITEE'">
                         <el-button round size="mini"
                                    v-on:click="handleOpen('https://github.com/'+scope.row.project+'/commits')">
                             <i class="iconfont icon-github-fill"></i>
@@ -125,6 +125,18 @@
                                    v-on:click="handleOpen('https://github.com/'+scope.row.project+'/search?utf8=✓&q=pass OR password OR passwd OR pwd OR smtp OR database')">
                             <i class="iconfont icon-flashlight"></i>
                             快速排查
+                        </el-button>
+                    </el-button-group>
+                    <el-button-group v-else-if="scope.row.vendor == 'GITEE'">
+                        <el-button round size="mini"
+                                   v-on:click="handleOpen(scope.row.project_url+'/commits/master')">
+                            <i class="iconfont icon-github-fill"></i>
+                            Commits
+                        </el-button>
+                        <el-button round size="mini"
+                                   v-on:click="() => {}">
+                            <i class="iconfont icon-flashlight"></i>
+                            别点我呀
                         </el-button>
                     </el-button-group>
                 </template>
@@ -154,7 +166,7 @@
                 const form = {security: 1, ignore: 1, desc: "", id: id};
                 this.axios
                     .patch(this.api.leakage, form)
-                    .then(response => {
+                    .then(() => {
                         this.$emit('change')
                     })
                     .catch(error => {

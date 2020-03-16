@@ -14,7 +14,7 @@
             <router-view></router-view>
         </el-main>
         <el-footer>
-            2016-{{year}} &copy; <a href="https://github.com/0xbug" target="_blank">0xbug</a>
+            2016-{{year}} &copy; <a href="https://github.com/0xbug" target="_blank">0xbug-GG</a>
         </el-footer>
     </el-container>
 </template>
